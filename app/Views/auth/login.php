@@ -22,6 +22,7 @@
 
 <body class="bg-gradient-primary">
     <div class="container">
+        <?php $validation = \Config\Services::validation(); ?>
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -38,16 +39,22 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="<?= base_url('Auth/cekLogin') ?>" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address...">
+                                            <?php if ($validation->getError('email')) : ?>
+                                                <?= $validation->getError('email') ?>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                            <?php if ($validation->getError('password')) : ?>
+                                                <?= $validation->getError('password') ?>
+                                            <?php endif; ?>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        <button class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                     </form>
                                     <hr>

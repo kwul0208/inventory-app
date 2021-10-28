@@ -16,7 +16,11 @@ class Auth extends Controller
 
     public function index()
     {
-        $user = $this->dbModel->find(1);
+
+        $user = $this->dbModel->where('id', 9)->findAll();
+
+
+
 
         $data = [
             'title' => 'Login',
@@ -26,9 +30,54 @@ class Auth extends Controller
         return view('auth/login', $data);
     }
 
+    public function cekLogin()
+    {
+        $session = \Config\Services::session();
+
+        $email = $this->request->getVar('email');
+        $password = $this->request->getVar('password');
+
+        $input = $this->validate([
+            'email' => 'required|valid_email',
+            'password' => 'required'
+        ]);
+
+        if (!$input) {
+            return view('auth/login');
+        }
+
+        if ($email) {
+            $user = $this->dbModel->where('email', $email)->first();
+
+            if (password_verify($password, $user['password'])) {
+                if ($user['role_id'] === '1') {
+                    $datasession = [
+                        'id' => $user['id'],
+                        'role_id' => $user['role_id']
+                    ];
+
+                    $session->set($datasession);
+
+                    return redirect()->to('/Admin');
+                } else {
+                    $datasession = [
+                        'id' => $user['id'],
+                        'role_id' => $user['role_id']
+                    ];
+
+                    $session->set($datasession);
+                    return redirect()->to('/User');
+                }
+            } else {
+                return redirect()->to('/Auth');
+            }
+        } else {
+            return redirect()->to('/Auth');
+        }
+    }
+
     public function Register()
     {
-        // dd($this->request->getVar('nama'));
 
 
         $data = [
@@ -66,6 +115,15 @@ class Auth extends Controller
 
         ]);
 
+        return redirect()->to('/Auth');
+    }
+
+    public function logOut()
+    {
+        $session = \Config\Services::session();
+
+        $array_items = array('id', 'role_id');
+        $session->remove($array_items);
         return redirect()->to('/Auth');
     }
 }
