@@ -14,25 +14,25 @@
                         </div>
                         <form class="user" action="<?= base_url('Admin/saveBarang') ?>" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="nama" name='nama' placeholder="Nama Barang">
+                                <input type="text" class="form-control form-control-user" id="nama" name='nama' placeholder="Jenis Barang">
                                 <?= $validation->getError('nama') ?>
                             </div>
 
                             <label for="satuan">Jenis Barang</label>
                             <div class="input-group mb-3">
                                 <select class=" custom-select" id="jenis" name='jenis'>
-                                    <option value="Baner" selected>Brosur</option>
-                                    <option value="Stiker">Stiker</option>
-                                    <option value="Banner">Stater Pack Banner</option>
+                                    <?php foreach ($jenisBarang as $jB) : ?>
+                                        <option value="<?= $jB['jenis'] ?>" selected><?= $jB['jenis'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <label for="satuan">Satuan</label>
                             <div class="input-group mb-3">
                                 <select class=" custom-select" id="satuan" name='satuan'>
-                                    <option value="Meter" selected>Meter</option>
-                                    <option value="Liter">Liter</option>
-                                    <option value="Box">Box</option>
+                                    <?php foreach ($satuanBarang as $sB) : ?>
+                                        <option value="<?= $sB['satuan'] ?>" selected><?= $sB['satuan'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
