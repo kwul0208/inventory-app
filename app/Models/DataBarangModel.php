@@ -13,4 +13,9 @@ class DataBarangModel extends Model
     {
         return $this->table('data_barang')->findAll();
     }
+
+    // public function updateStok($nama_barang)
+    // {
+
+    // }
 }

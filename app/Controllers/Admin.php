@@ -6,7 +6,8 @@ use App\Models\Db_model;
 use App\Models\DataBarangModel;
 use App\Models\JenisBarangModel;
 use App\Models\satuanBarangModel;
-
+use App\Models\TransaksiKeluarModel;
+use App\Models\TransaksiMasukModel;
 use CodeIgniter\Controller;
 
 class Admin extends Controller
@@ -19,6 +20,8 @@ class Admin extends Controller
         $this->dataBarangModel = new DataBarangModel();
         $this->jenisBarangModel = new JenisBarangModel();
         $this->satuanBarangModel = new satuanBarangModel();
+        $this->transaksiMasukModel = new TransaksiMasukModel();
+        $this->transaksiKeluarModel = new TransaksiKeluarModel();
     }
 
     public function index()
@@ -36,6 +39,9 @@ class Admin extends Controller
     public function dataBarang()
     {
         $data['title'] = 'Data Barang';
+
+        // $coba = $this->dataBarangModel->where('id', 8)->find();
+        // dd($coba[0]['nama_barang']);
 
         $data['barang'] = $this->dataBarangModel->getAllBarang();
 
@@ -186,6 +192,144 @@ class Admin extends Controller
     }
     // end
 
+    // TRANSAKSI
+    // barang Masuk
+    public function barangMasuk()
+    {
+        $data['title'] = 'Barang Masuk';
+        $data['barang'] = $this->transaksiMasukModel->getAllTMasuk();
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/Transaksi/barangMasuk', $data);
+        echo view('templates/footer');
+    }
+
+    public function tambahBarangMasuk()
+    {
+        $data['title'] = 'Tambah Barang Masuk';
+        $data['jenisBarang'] = $this->jenisBarangModel->getAllJenis();
+        $data['satuanBarang'] = $this->satuanBarangModel->getAllSatuan();
+        $data['barang'] = $this->dataBarangModel->getAllBarang();
 
 
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/Transaksi/tambahBarangMasuk');
+    }
+
+    public function savebarangMasuk()
+    {
+        $input = $this->validate([
+            'stok' => 'required|numeric',
+
+        ]);
+
+        if (!$input) {
+            $data['jenisBarang'] = $this->jenisBarangModel->getAllJenis();
+            $data['satuanBarang'] = $this->satuanBarangModel->getAllSatuan();
+            $data['barang'] = $this->dataBarangModel->getAllBarang();
+
+
+            $data['title'] = 'Tambah Barang Masuk';
+
+            echo view('templates/header', $data);
+            echo view('templates/sidebar');
+            echo view('templates/navbar');
+            echo view('pages/Transaksi/tambahBarangMasuk');
+        } else {
+            $format = "Y-m-d";
+            $this->transaksiMasukModel->save([
+                'nama_barang' => $this->request->getVar('nama'),
+                'stok' => $this->request->getVar('stok'),
+                'jenis_barang' => $this->request->getVar('jenis'),
+                'satuan' => $this->request->getVar('satuan'),
+                'tanggal' => date($format)
+            ]);
+
+            $stok_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['stok'];
+
+            $data = [
+                'stok' => $stok_barang + $this->request->getVar('stok')
+            ];
+
+            $id_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['id'];
+            $this->dataBarangModel->update($id_barang, $data);
+
+            return redirect()->to('Admin/barangMasuk');
+        }
+    }
+
+    // barang keluar
+    public function barangKeluar()
+    {
+        $data['title'] = 'Barang Masuk';
+        $data['barang'] = $this->transaksiKeluarModel->getAllkeluar();
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/Transaksi/barangKeluar', $data);
+        echo view('templates/footer');
+    }
+
+    public function tambahBarangKeluar()
+    {
+        $data['title'] = 'Tambah Barang Keluar';
+        $data['jenisBarang'] = $this->jenisBarangModel->getAllJenis();
+        $data['satuanBarang'] = $this->satuanBarangModel->getAllSatuan();
+        $data['barang'] = $this->dataBarangModel->getAllBarang();
+
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/Transaksi/tambahBarangKeluar');
+    }
+
+    public function saveBarangKeluar()
+    {
+        $input = $this->validate([
+            'stok' => 'required|numeric',
+
+        ]);
+
+        if (!$input) {
+            $data['jenisBarang'] = $this->jenisBarangModel->getAllJenis();
+            $data['satuanBarang'] = $this->satuanBarangModel->getAllSatuan();
+            $data['barang'] = $this->dataBarangModel->getAllBarang();
+
+
+            $data['title'] = 'Tambah Barang Masuk';
+
+            echo view('templates/header', $data);
+            echo view('templates/sidebar');
+            echo view('templates/navbar');
+            echo view('pages/Transaksi/tambahBarangMasuk');
+        } else {
+            $format = "Y-m-d";
+            $this->transaksiKeluarModel->save([
+                'nama_barang' => $this->request->getVar('nama'),
+                'stok' => $this->request->getVar('stok'),
+                'jenis_barang' => $this->request->getVar('jenis'),
+                'satuan' => $this->request->getVar('satuan'),
+                'tanggal' => date($format)
+            ]);
+
+            $stok_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['stok'];
+
+            $data = [
+                'stok' => $stok_barang - $this->request->getVar('stok')
+            ];
+
+            $id_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['id'];
+            $this->dataBarangModel->update($id_barang, $data);
+
+            return redirect()->to('Admin/barangKeluar');
+        }
+    }
+
+    // END TRANSAKSI
 }

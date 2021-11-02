@@ -63,8 +63,8 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kelola Transaksi:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Barang Masuk</a>
-                    <a class="collapse-item" href="utilities-border.html">Barang Keluar</a>
+                    <a class="collapse-item" href="<?= base_url('Admin/barangMasuk') ?>">Barang Masuk</a>
+                    <a class="collapse-item" href="<?= base_url('Admin/barangKeluar') ?>">Barang Keluar</a>
                 </div>
             </div>
         </li>
