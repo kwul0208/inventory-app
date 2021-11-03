@@ -1,0 +1,19 @@
+.pil{
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.max{
+    background-color: rgb(191, 255, 191);
+}
+
+.avrg{
+    background-color: rgb(252, 252, 155);
+}
+
+.min{
+    background-color: rgb(255, 170, 170);
+}

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -21,6 +23,9 @@
     <!-- Custom styles for this page -->
     <link href="<?= base_url() ?>/sb-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+
+    <!-- mycss -->
+    <link rel="stylesheet" href="<?= base_url() ?>/css/style.css">
 </head>
 
 <body id="page-top">
