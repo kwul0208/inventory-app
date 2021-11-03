@@ -1,7 +1,3 @@
-<?php
-
-use App\Controllers\Auth;
-?>
 <!DOCTYPE html>
 <html lang="en">
 

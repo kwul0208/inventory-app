@@ -132,8 +132,8 @@
             <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kelola User:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Admin</a>
-                    <a class="collapse-item" href="utilities-border.html">User</a>
+                    <a class="collapse-item" href="<?= base_url('Admin/dataAdmin') ?>">Admin</a>
+                    <a class="collapse-item" href="<?= base_url('Admin/dataUser') ?>">User</a>
                 </div>
             </div>
         </li>

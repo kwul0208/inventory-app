@@ -439,4 +439,121 @@ class Admin extends Controller
 
         $pdf->Output('Laporan Keluar', 'I');
     }
+
+    // END
+
+    // PENGATURAN
+    public function dataAdmin()
+    {
+        $data['title'] = 'Data Admin';
+        $data['pengguna'] = $this->dbModel->where('role_id', 1)->findAll();
+
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/pengaturan/Admin', $data);
+        echo view('templates/footer');
+    }
+
+    public function tambahAdmin()
+    {
+        $data['title'] = 'Tambah Admin';
+
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/pengaturan/tambahAdmin', $data);
+        echo view('templates/footer');
+    }
+
+    public function saveAdmin()
+    {
+        $data = [
+            'title' =>  'Tambah Admin'
+        ];
+
+        helper(['form', 'url']);
+
+
+        $input = $this->validate([
+            'nama' => 'required',
+            'email' => 'required|valid_email',
+            'password1' => 'matches[password2]',
+            'password2' => 'matches[password1]',
+        ]);
+
+        if (!$input) {
+            return view('auth/register', $data);
+        }
+
+        $this->dbModel->save([
+            'nama' => $this->request->getVar('nama'),
+            'email' => $this->request->getVar('email'),
+            'password' => password_hash($this->request->getVar('password1'), PASSWORD_DEFAULT),
+            'role_id' => 1,
+            'date_created' => time()
+
+        ]);
+
+        return redirect()->to('/Auth');
+    }
+
+    public function dataUser()
+    {
+        $data['title'] = 'Data User';
+        $data['pengguna'] = $this->dbModel->where('role_id', 2)->findAll();
+
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/pengaturan/User', $data);
+        echo view('templates/footer');
+    }
+
+    public function tambahUser()
+    {
+        $data['title'] = 'Tambah User';
+
+
+        echo view('templates/header', $data);
+        echo view('templates/sidebar');
+        echo view('templates/navbar');
+        echo view('pages/pengaturan/tambahUser', $data);
+        echo view('templates/footer');
+    }
+
+    public function saveUser()
+    {
+        $data = [
+            'title' =>  'Tambah Admin'
+        ];
+
+        helper(['form', 'url']);
+
+
+        $input = $this->validate([
+            'nama' => 'required',
+            'email' => 'required|valid_email',
+            'password1' => 'matches[password2]',
+            'password2' => 'matches[password1]',
+        ]);
+
+        if (!$input) {
+            return view('auth/register', $data);
+        }
+
+        $this->dbModel->save([
+            'nama' => $this->request->getVar('nama'),
+            'email' => $this->request->getVar('email'),
+            'password' => password_hash($this->request->getVar('password1'), PASSWORD_DEFAULT),
+            'role_id' => 2,
+            'date_created' => time()
+
+        ]);
+
+        return redirect()->to('/Auth');
+    }
 }
