@@ -105,7 +105,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="<?= base_url('Auth/logOut') ?>">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-sign-out-alt fa-flip-horizontal"></i>
                 <span>Log Out</span>
             </a>
         </li>
@@ -134,7 +134,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="<?= base_url('Admin') ?>">
+            <a class="nav-link" href="<?= base_url('User') ?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -171,7 +171,7 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="<?= base_url('Auth/logOut') ?>">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-sign-out-alt fa-flip-horizontal"></i>
                 <span>Log Out</span>
             </a>
         </li>

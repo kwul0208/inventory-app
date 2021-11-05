@@ -37,7 +37,10 @@ class User extends Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
+        $data['user'] = $this->dbModel->getAllUser();
         $data['barang'] = $this->dataBarangModel->getAllBarang();
+        $data['masuk'] = $this->transaksiMasukModel->getAllTMasuk();
+        $data['keluar'] = $this->transaksiKeluarModel->getAllkeluar();
 
 
         echo view('templates/header', $data);
