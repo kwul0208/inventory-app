@@ -16,15 +16,16 @@ class Auth extends Controller
 
     public function index()
     {
+        $session = \Config\Services::session();
 
-        $user = $this->dbModel->where('id', 9)->findAll();
-
-
-
+        if ($session->get('role_id') === '1') {
+            return redirect()->to('Admin');
+        } elseif ($session->get('role_id') === '2') {
+            return redirect()->to('User');
+        }
 
         $data = [
             'title' => 'Login',
-            'user' => $user
         ];
 
         return view('auth/login', $data);
@@ -53,6 +54,8 @@ class Auth extends Controller
                 if ($user['role_id'] === '1') {
                     $datasession = [
                         'id' => $user['id'],
+                        'log' => TRUE,
+                        'nama' => $user['nama'],
                         'role_id' => $user['role_id']
                     ];
 
@@ -62,6 +65,8 @@ class Auth extends Controller
                 } else {
                     $datasession = [
                         'id' => $user['id'],
+                        'log' => TRUE,
+                        'nama' => $user['nama'],
                         'role_id' => $user['role_id']
                     ];
 
@@ -79,6 +84,13 @@ class Auth extends Controller
     public function Register()
     {
 
+        $session = \Config\Services::session();
+
+        if ($session->get('role_id') === '1') {
+            return redirect()->to('Admin');
+        } elseif ($session->get('role_id') === '2') {
+            return redirect()->to('User');
+        }
 
         $data = [
             'title' =>  'Registrai'
@@ -122,7 +134,7 @@ class Auth extends Controller
     {
         $session = \Config\Services::session();
 
-        $array_items = array('id', 'role_id');
+        $array_items = array('id', 'role_id', 'log');
         $session->remove($array_items);
         return redirect()->to('/Auth');
     }

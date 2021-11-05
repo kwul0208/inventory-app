@@ -1,4 +1,13 @@
+<?php
+// $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// $uri_segments = explode('/', $uri_path);
+
+// dd($uri_segments[1]);
+?>
+
 <?php $session = \Config\Services::session(); ?>
+<?= var_dump($session->get('log')) ?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 

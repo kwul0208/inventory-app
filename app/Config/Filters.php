@@ -20,8 +20,6 @@ class Filters extends BaseConfig
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
         'auth'     => \App\Filters\Auth::class,
-        'outrole'     => \App\Filters\OutRole::class,
-        'userrole' => \App\Filters\userrole::class,
     ];
 
     /**

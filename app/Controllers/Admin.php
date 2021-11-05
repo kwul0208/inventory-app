@@ -12,12 +12,24 @@ use CodeIgniter\Controller;
 
 use TCPDF;
 
+$session = \Config\Services::session();
+
+if (!$session->get('log')) {
+    return redirect()->to('/');
+};
+
+if ($session->get('role_id') !== '1') {
+    return redirect()->to('User');
+}
+
 class Admin extends Controller
 {
     protected $dbModel;
 
     public function __construct()
     {
+
+
         $this->dbModel = new Db_model();
         $this->dataBarangModel = new DataBarangModel();
         $this->jenisBarangModel = new JenisBarangModel();
@@ -28,6 +40,7 @@ class Admin extends Controller
 
     public function index()
     {
+
         $data['title'] = 'Dashboard';
         $data['barang'] = $this->dataBarangModel->getAllBarang();
 
