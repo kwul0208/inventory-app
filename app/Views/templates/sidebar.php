@@ -154,9 +154,9 @@
             <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kelola Laporan:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Stok Barang</a>
-                    <a class="collapse-item" href="utilities-border.html">Barang Masuk</a>
-                    <a class="collapse-item" href="utilities-border.html">Barang Keluar</a>
+                    <a class="collapse-item" href="<?= base_url('User/laporanStok') ?>">Stok Barang</a>
+                    <a class="collapse-item" href="<?= base_url('User/laporanStokMasuk') ?>">Barang Masuk</a>
+                    <a class="collapse-item" href="<?= base_url('User/laporanStokKeluar') ?>">Barang Keluar</a>
                 </div>
             </div>
         </li>

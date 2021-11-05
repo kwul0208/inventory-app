@@ -1,7 +1,13 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="<?= base_url('Admin/printLaporanMasuk') ?>" class="btn btn-danger mb-4">print PDF</a>
+    <?php $session = \Config\Services::session(); ?>
+
+    <?php if ($session->get('role_id') === '1') : ?>
+        <a href="<?= base_url('Admin/printLaporanMasuk') ?>" class="btn btn-danger mb-4">print PDF</a>
+    <?php elseif ($session->get('role_id') === '2') : ?>
+        <a href="<?= base_url('User/printLaporanMasuk') ?>" class="btn btn-danger mb-4">print PDF</a>
+    <?php endif; ?>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
