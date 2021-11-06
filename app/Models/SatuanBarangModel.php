@@ -13,4 +13,9 @@ class satuanBarangModel extends Model
     {
         return $this->table('satuan_barang')->findAll();
     }
+
+    public function hapusData($id)
+    {
+        return $this->table('satuan_barang')->delete($id);
+    }
 }

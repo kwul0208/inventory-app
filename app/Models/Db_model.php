@@ -18,4 +18,9 @@ class Db_model extends Model
     {
         return $this->table('user')->like('email', $email);
     }
+
+    public function hapusData($id)
+    {
+        return $this->table('user')->delete($id);
+    }
 }

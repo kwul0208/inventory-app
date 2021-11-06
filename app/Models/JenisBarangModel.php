@@ -14,4 +14,9 @@ class JenisBarangModel extends Model
     {
         return $this->table('jenis_barang')->findAll();
     }
+
+    public function hapusData($id)
+    {
+        return $this->table('jenis_barang')->delete($id);
+    }
 }

@@ -1,4 +1,9 @@
+<?php $session = \Config\Services::session();
+?>
+
+
 <div class="container-fluid">
+    <?= $session->getFlashdata('sukses'); ?>
 
     <a href="<?= base_url('Admin/tambahAdmin') ?>" class="btn btn-primary mb-4">Tambah Admin</a>
 
@@ -29,7 +34,11 @@
                                 <td><?= $p['id'] ?></td>
                                 <td><?= $p['nama'] ?></td>
                                 <td><?= $p['email'] ?></td>
-                                <td>hapus</td>
+                                <td>
+                                    <a href="hapusAdmin/<?= $p['id'] ?>" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

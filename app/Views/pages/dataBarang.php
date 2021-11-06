@@ -1,4 +1,9 @@
+<?php $session = \Config\Services::session();
+?>
+
+
 <div class="container-fluid">
+    <?= $session->getFlashdata('sukses'); ?>
 
     <a href="<?= base_url('Admin/tambahBarang') ?>" class="btn btn-primary mb-5">Tambah Barang Baru</a>
     <div class="card shadow mb-4">
@@ -16,6 +21,7 @@
                             <th>Jenis Barang</th>
                             <th>Stok</th>
                             <th>Satuan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +34,11 @@
                                 <td><?= $b['jenis_barang'] ?></td>
                                 <td><?= $b['stok'] ?></td>
                                 <td><?= $b['satuan'] ?></td>
+                                <td>
+                                    <a href="hapusDataBarang/<?= $b['id'] ?>" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

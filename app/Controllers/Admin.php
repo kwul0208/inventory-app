@@ -22,6 +22,7 @@ if ($session->get('role_id') !== '1') {
     return redirect()->to('User');
 }
 
+
 class Admin extends Controller
 {
     protected $dbModel;
@@ -40,7 +41,6 @@ class Admin extends Controller
 
     public function index()
     {
-
         $data['title'] = 'Dashboard';
         $data['user'] = $this->dbModel->getAllUser();
         $data['barang'] = $this->dataBarangModel->getAllBarang();
@@ -111,6 +111,9 @@ class Admin extends Controller
             'jenis_barang' => $this->request->getVar('jenis'),
             'satuan' => $this->request->getVar('satuan')
         ]);
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">Data barang baru berhasil ditambahkan!</div>');
 
         return redirect()->to('/Admin/dataBarang');
     }
@@ -161,6 +164,10 @@ class Admin extends Controller
             'jenis' => $this->request->getVar('jenis')
         ]);
 
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
+
         return redirect()->to('Admin/jenisBarang');
     }
 
@@ -207,6 +214,10 @@ class Admin extends Controller
             $this->satuanBarangModel->save([
                 'satuan' => $this->request->getVar('satuan')
             ]);
+
+            $session =  \Config\Services::session();
+
+            $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
 
             return redirect()->to('Admin/satuanBarang');
         }
@@ -279,6 +290,9 @@ class Admin extends Controller
             $id_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['id'];
             $this->dataBarangModel->update($id_barang, $data);
 
+            $session =  \Config\Services::session();
+
+            $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
             return redirect()->to('Admin/barangMasuk');
         }
     }
@@ -348,6 +362,9 @@ class Admin extends Controller
             $id_barang = $this->dataBarangModel->where('nama_barang',  $this->request->getVar('nama'))->find()[0]['id'];
             $this->dataBarangModel->update($id_barang, $data);
 
+            $session =  \Config\Services::session();
+
+            $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
             return redirect()->to('Admin/barangKeluar');
         }
     }
@@ -515,6 +532,9 @@ class Admin extends Controller
 
         ]);
 
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
         return redirect()->to('/Auth');
     }
 
@@ -572,6 +592,62 @@ class Admin extends Controller
 
         ]);
 
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil ditambahkan!</div>');
+
         return redirect()->to('/Auth');
+    }
+
+
+    // DELETE Method
+    public function hapusDataBarang($id)
+    {
+        $this->dataBarangModel->hapusData($id);
+
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil dihapus</div>');
+        return redirect()->to('/Admin/dataBarang');
+    }
+
+    public function hapusJenisBarang($id)
+    {
+        $this->jenisBarangModel->hapusData($id);
+
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil dihapus</div>');
+        return redirect()->to('/Admin/jenisBarang');
+    }
+
+    public function hapusSatuanBarang($id)
+    {
+        $this->satuanBarangModel->hapusData($id);
+
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil dihapus</div>');
+        return redirect()->to('/Admin/satuanBarang');
+    }
+
+    public function hapusAdmin($id)
+    {
+        $this->dbModel->hapusData($id);
+
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil dihapus</div>');
+        return redirect()->to('/Admin/dataAdmin');
+    }
+
+    public function hapusUser($id)
+    {
+        $this->dbModel->hapusData($id);
+
+        $session =  \Config\Services::session();
+
+        $session->setFlashdata('sukses', '<div class="alert alert-success" role="alert">berhasil dihapus</div>');
+        return redirect()->to('/Admin/dataUser');
     }
 }

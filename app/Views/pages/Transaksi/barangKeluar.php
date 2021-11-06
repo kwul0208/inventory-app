@@ -1,4 +1,9 @@
+<?php $session = \Config\Services::session();
+?>
+
+
 <div class="container-fluid">
+    <?= $session->getFlashdata('sukses'); ?>
 
     <a href="<?= base_url('Admin/tambahBarangKeluar') ?>" class="btn btn-primary mb-5">Tambah Barang Keluar</a>
     <div class="card shadow mb-4">

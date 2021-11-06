@@ -1,4 +1,9 @@
+<?php $session = \Config\Services::session();
+?>
+
+
 <div class="container-fluid">
+    <?= $session->getFlashdata('sukses'); ?>
 
     <a href="<?= base_url('Admin/tambahSatuan') ?>" class="btn btn-primary mb-5">Tambah Jenis Baru</a>
 
@@ -22,7 +27,9 @@
                             <tr>
                                 <td><?= $i++ ?></td>
                                 <td><?= $jb['jenis'] ?></td>
-                                <td>Hapus</td>
+                                <td> <a href="hapusJenisBarang/<?= $jb['id'] ?>" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
